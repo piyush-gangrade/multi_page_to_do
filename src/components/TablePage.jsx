@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState} from "react";
+import { useCallback, useEffect, useState} from "react";
 import { useRecoilState } from "recoil";
 import { mainPageData } from "../states/todoState";
 import PropTypes from "prop-types";
@@ -9,7 +9,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
 
     const [isLoading, setIsLoading] = useState(false);
     
-    const getAPIData = async()=>{
+    const getAPIData = useCallback(async()=>{
         try {
             setIsLoading(true)
             const res = await axios.get("https://jsonplaceholder.typicode.com/todos");
@@ -34,11 +34,11 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
         } finally{
                 setIsLoading(false)
         }
-    }
+    },[index, setLeftTableData])
 
     useEffect(()=>{
         getAPIData();
-    }, [index]);
+    }, [index, getAPIData]);
 
     // send data left to right table
     const addToRightTable = (data)=>{
