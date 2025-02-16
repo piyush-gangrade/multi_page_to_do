@@ -6,10 +6,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['georgia ', 'serif'],
+        normalText: ['cambria', 'serif']
+      },
+    },
   },
   daisyui: {
-    themes: ["light", "dark", "retro", "lofi"],
+    themes: ["light", "dark", "retro", "lofi", "nord"],
   },
   plugins: [
     daisyui

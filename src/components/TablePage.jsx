@@ -89,25 +89,25 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
     //left table row elements
     const leftTableEl = leftTableData.map(data => {
         return (
-            <tr key={`left-${data.id}`} data-testid="task-item">
+            <tr key={`left-${data.id}`} data-testid="task-item" className="text-[#003459] font-medium">
                 <td className="text-center" data-testid="task-id">{data.id}</td>
                 <td >{data.title}</td>
                 <td className="text-center">{data.userId}</td>
                 <td className="text-center">{`${data.completed}`}</td>
-                <td ><button data-testid="task-add" className="btn btn-sm btn-outline" onClick={()=>addToRightTable(data)}>Add</button></td>
+                <td ><button data-testid="task-add" className="btn btn-sm btn-outline hover:bg-[#003459]" onClick={()=>addToRightTable(data)}>Add</button></td>
             </tr>
         )
     })
     // right table row elements
     const rightTableEl = rightTableData.map(data => {
         return (
-            <tr key={`right-${data.id}`} data-testid="task-item">
+            <tr key={`right-${data.id}`} data-testid="task-item" className="text-[#003459] font-medium bg-[#d8e8ee]">
                 <td className="text-center" data-testid="task-id">{data.id}</td>
                 <td >{data.title}</td>
                 <td className="text-center">{data.userId}</td>
                 <td className="text-center">{`${data.completed}`}</td>
                 <td>
-                    <button data-testid="task-back" className="btn btn-sm btn-outline " onClick={()=>backToLeftTable(data)}>Back</button>
+                    <button data-testid="task-back" className="btn btn-sm btn-outline hover:bg-[#003459]" onClick={()=>backToLeftTable(data)}>Back</button>
                 </td>
                 <td>
                     <button data-testid="task-remove" className="btn btn-sm btn-outline" onClick={()=>removeData(data)}>Remove</button>
@@ -117,9 +117,9 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
     })
     return (
         <>
-            <button className="ml-4 btn btn-primary btn-outline" onClick={getAPIData}>Refresh</button>
+            <button className="ml-4 btn btn-outline hover:bg-[#5e81ac]" onClick={getAPIData}>Refresh</button>
             
-            <div className={`text-xl m-4 text-center ${(rightTableData.length>0 || leftTableData.length>0)? "hidden": ""}`}>Please click refresh to get new data.</div>
+            <div className={`text-xl font-semibold text-[#003459] m-4 text-center ${(rightTableData.length>0 || leftTableData.length>0)? "hidden": ""}`}>Please click refresh to get new data.</div>
 
             {/* table section */}
             <div className={`p-2 grid ${(rightTableData.length>0 && leftTableData.length>0)? "grid-cols-2": "grid-cols-1"} gap-8`}>
@@ -132,7 +132,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                 : <div className={`h-[620px] overflow-y-scroll ${leftTableData.length>0?"":"hidden"}`}>
                     <table className="w-full table" data-testid="left-table">
                         <thead>
-                            <tr className="text-base">
+                            <tr className="text-base bg-[#007EA7] text-white">
                                 <th className="w-[55px]">Id</th>
                                 <th >Title</th>
                                 <th className="w-[85px]">User Id</th>
@@ -140,7 +140,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                                 <th className="w-[70px]"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="font-normalText">
                             {leftTableEl}
                         </tbody>
                     </table>
@@ -150,7 +150,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                     <div className="h-[575px] overflow-y-scroll">
                         <table className="w-full table" data-testid="right-table">
                             <thead>
-                                <tr className="text-base">
+                                <tr className="text-base bg-[#007EA7] text-white">
                                     <th className="w-[55px]">Id</th>
                                     <th >Title</th>
                                     <th className="w-[85px]">User Id</th>
@@ -159,7 +159,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                                     <th className="w-[110px]"></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="font-normalText">
                                 {rightTableEl}
                             </tbody>
                         </table>
@@ -167,7 +167,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                     </div>
                     {/* send and clear btn container */}
                     <div className="mr-8 my-2 flex justify-end gap-8">
-                        <button data-testid="send-tasks" className="btn btn-outline rounded" onClick={sendData}>Send</button>
+                        <button data-testid="send-tasks" className="btn btn-outline rounded hover:bg-[#007EA7]" onClick={sendData}>Send</button>
                         <button data-testid="clear-tasks" className="btn btn-outline rounded" onClick={()=>setRightTableData([])}>Clear</button>
                     </div>
                 </div>

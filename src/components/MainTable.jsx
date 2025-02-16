@@ -87,13 +87,13 @@ export function MainTable(){
     }
     
     const tableEl = tableData.map(data => (
-        <tr key={data.id} data-testid="task-item">
+        <tr key={data.id} data-testid="task-item" className="text-[#003459] font-medium">
                 <td className="text-center" data-testid="task-id">{data.id}</td>
                 <td data-testid="task-title">{data.title}</td>
                 <td className="text-center" data-testid="task-userId">{data.userId}</td>
                 <td className="text-center">{`${data.completed}`}</td>
                 <td>
-                    <button data-testid="task-back" className="btn btn-sm btn-outline" onClick={()=>handleBackBtn(data)}>Back</button>
+                    <button data-testid="task-back" className="btn btn-sm btn-outline hover:bg-[#003459]" onClick={()=>handleBackBtn(data)}>Back</button>
                 </td>
                 <td>
                     <button data-testid="task-remove" className="btn btn-sm btn-outline" onClick={()=>hanldeDeleteBtn(data)}>Remove</button>
@@ -109,14 +109,14 @@ export function MainTable(){
                     {/* <input type="number" name="id" placeholder="Enter Id" className="input input-bordered" onChange={inputHandler} value={inputData.id} required/> */}
                     <input type="text" name="title" placeholder="Enter Title" className="input input-bordered" onChange={inputHandler} value={inputData.title} required/>
                     <input type="number" name="userId" placeholder="Enter User Id" className="input input-bordered" onChange={inputHandler} value={inputData.userId} required/>
-                    <button className="btn btn-outline text-lg" >Add</button>
+                    <button className="btn btn-outline text-lg bg-[#003459] text-white" >Add</button>
                 </form>
             </div>
             <div className={tableData.length>5?"col-span-2":"col-span-3"}>
-                <div className={`${tableData.length>5?"h-[600px] overflow-y-scroll":"h-[350px]"} border-2 border-[#d2d2d2]`}>
+                <div className={`${tableData.length>5?"h-[600px] overflow-y-scroll":"h-[350px] w-2/3 m-auto"} border-2 border-[#d2d2d2]`}>
                     <table className="w-full table" data-testid="main-table">
                         <thead>
-                            <tr className="text-base">
+                            <tr className="text-base bg-[#007EA7] text-white">
                                 <th className="w-[55px]">Id</th>
                                 <th>Title</th>
                                 <th className="w-[100px]">User Id</th>
@@ -125,14 +125,14 @@ export function MainTable(){
                                 <th className="w-[110px]"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="font-normal">
                             {tableEl}
                         </tbody>
                     </table>
                 </div>
                 <div className="mr-8 mt-4 flex justify-end gap-8">
                     <button data-testid="purge-task" className="btn btn-outline rounded" onClick={()=>setTableData([])}>Purge</button>
-                    <button data-testid="clear-task" className="btn btn-outline rounded" onClick={handleClearBtn}>Clear</button>
+                    <button data-testid="clear-task" className="btn btn-outline rounded hover:bg-[#003459]" onClick={handleClearBtn}>Clear</button>
                 </div>
             </div>
         </div>
