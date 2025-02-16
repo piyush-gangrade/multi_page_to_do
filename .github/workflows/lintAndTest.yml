@@ -50,6 +50,15 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Start the development server
+        run: npm run dev &
+        env:
+          PORT: 5173
+        continue-on-error: true
+
+      - name: Wait for the server to be ready
+        run: npx wait-on http://localhost:5173
+
       - name: Run Playwright Tests
         run: npx playwright test
 
@@ -59,4 +68,3 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-
