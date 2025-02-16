@@ -3,7 +3,7 @@ import { firstPageData, mainPageData, secondPageData } from "../states/todoState
 import { useRecoilState } from "recoil";
 
 export function MainTable(){
-
+    const [taskId, setTaskId] = useState(201);
     
     const [firstTableData, setFirstTableData] = useRecoilState(firstPageData);
     const [secondTableData, setSecondTableData] = useRecoilState(secondPageData);
@@ -15,6 +15,14 @@ export function MainTable(){
         title: "",
         completed: false
     })
+
+    useState(()=>{
+        const id = tableData.reduce((acc, data)=>{
+            if(data.id > 200) return acc +1;
+            return acc;
+        }, 201)
+        setTaskId(id);
+    },[])
     
     const inputHandler = (e)=>{
         const name = e.target.name;
@@ -27,7 +35,8 @@ export function MainTable(){
     
     const handleSubmit = (e)=>{
         e.preventDefault();
-        
+        inputData.id = taskId;
+        setTaskId(id => id+1);
         setTableData(data => ([
             ...data,
             inputData
@@ -78,34 +87,34 @@ export function MainTable(){
     }
     
     const tableEl = tableData.map(data => (
-        <tr key={data.id}>
-                <td className="text-center">{data.id}</td>
-                <td >{data.title}</td>
-                <td className="text-center">{data.userId}</td>
+        <tr key={data.id} data-testid="task-item">
+                <td className="text-center" data-testid="task-id">{data.id}</td>
+                <td data-testid="task-title">{data.title}</td>
+                <td className="text-center" data-testid="task-userId">{data.userId}</td>
                 <td className="text-center">{`${data.completed}`}</td>
                 <td>
-                    <button className="btn btn-sm btn-outline" onClick={()=>handleBackBtn(data)}>Back</button>
+                    <button data-testid="task-back" className="btn btn-sm btn-outline" onClick={()=>handleBackBtn(data)}>Back</button>
                 </td>
                 <td>
-                    <button className="btn btn-sm btn-outline" onClick={()=>hanldeDeleteBtn(data)}>Remove</button>
+                    <button data-testid="task-remove" className="btn btn-sm btn-outline" onClick={()=>hanldeDeleteBtn(data)}>Remove</button>
                 </td>
             </tr>
     ))
     
     return (
         <div className="px-4 py-8 grid grid-cols-3 gap-8" >
-            <div className={`col-span-1 ${tableData.length>4?"":"col-start-2"}`}>
+            <div className={`col-span-1 ${tableData.length>5?"":"col-start-2"}`}>
                 <h1 className="text-center text-2xl font-semibold">User Data</h1>
                 <form className="mx-4  form-control p-2 gap-2 rounded" onSubmit={handleSubmit}>
-                    <input type="number" name="id" placeholder="Enter Id" className="input input-bordered" onChange={inputHandler} value={inputData.id} required/>
+                    {/* <input type="number" name="id" placeholder="Enter Id" className="input input-bordered" onChange={inputHandler} value={inputData.id} required/> */}
                     <input type="text" name="title" placeholder="Enter Title" className="input input-bordered" onChange={inputHandler} value={inputData.title} required/>
                     <input type="number" name="userId" placeholder="Enter User Id" className="input input-bordered" onChange={inputHandler} value={inputData.userId} required/>
                     <button className="btn btn-outline text-lg" >Add</button>
                 </form>
             </div>
-            <div className={tableData.length>4?"col-span-2":"col-span-3"}>
-                <div className={`${tableData.length>4?"h-[600px] overflow-y-scroll":"h-[280px]"} border-2 border-[#d2d2d2]`}>
-                    <table className="w-full table">
+            <div className={tableData.length>5?"col-span-2":"col-span-3"}>
+                <div className={`${tableData.length>5?"h-[600px] overflow-y-scroll":"h-[350px]"} border-2 border-[#d2d2d2]`}>
+                    <table className="w-full table" data-testid="main-table">
                         <thead>
                             <tr className="text-base">
                                 <th className="w-[55px]">Id</th>
@@ -122,8 +131,8 @@ export function MainTable(){
                     </table>
                 </div>
                 <div className="mr-8 mt-4 flex justify-end gap-8">
-                    <button className="btn btn-outline rounded" onClick={()=>setTableData([])}>Purge</button>
-                    <button className="btn btn-outline rounded" onClick={handleClearBtn}>Clear</button>
+                    <button data-testid="purge-task" className="btn btn-outline rounded" onClick={()=>setTableData([])}>Purge</button>
+                    <button data-testid="clear-task" className="btn btn-outline rounded" onClick={handleClearBtn}>Clear</button>
                 </div>
             </div>
         </div>

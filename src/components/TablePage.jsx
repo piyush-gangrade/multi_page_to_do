@@ -25,8 +25,8 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
             }
             
             const shuffled = data
-                                .sort(() => 0.5 - Math.random()) // Shuffle the array
-                                .slice(0, 10);
+            .sort(() => 0.5 - Math.random()) // Shuffle the array
+            .slice(0, 10);
             setLeftTableData(shuffled);
             
         } catch (error) {
@@ -89,28 +89,28 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
     //left table row elements
     const leftTableEl = leftTableData.map(data => {
         return (
-            <tr key={`left-${data.id}`}>
-                <td className="text-center">{data.id}</td>
+            <tr key={`left-${data.id}`} data-testid="task-item">
+                <td className="text-center" data-testid="task-id">{data.id}</td>
                 <td >{data.title}</td>
                 <td className="text-center">{data.userId}</td>
                 <td className="text-center">{`${data.completed}`}</td>
-                <td ><button className="btn btn-sm btn-outline" onClick={()=>addToRightTable(data)}>Add</button></td>
+                <td ><button data-testid="task-add" className="btn btn-sm btn-outline" onClick={()=>addToRightTable(data)}>Add</button></td>
             </tr>
         )
     })
     // right table row elements
     const rightTableEl = rightTableData.map(data => {
         return (
-            <tr key={`right-${data.id}`}>
-                <td className="text-center">{data.id}</td>
+            <tr key={`right-${data.id}`} data-testid="task-item">
+                <td className="text-center" data-testid="task-id">{data.id}</td>
                 <td >{data.title}</td>
                 <td className="text-center">{data.userId}</td>
                 <td className="text-center">{`${data.completed}`}</td>
                 <td>
-                    <button className="btn btn-sm btn-outline " onClick={()=>backToLeftTable(data)}>Back</button>
+                    <button data-testid="task-back" className="btn btn-sm btn-outline " onClick={()=>backToLeftTable(data)}>Back</button>
                 </td>
                 <td>
-                    <button className="btn btn-sm btn-outline" onClick={()=>removeData(data)}>Remove</button>
+                    <button data-testid="task-remove" className="btn btn-sm btn-outline" onClick={()=>removeData(data)}>Remove</button>
                 </td>
             </tr>
         )
@@ -127,10 +127,10 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                 {isLoading? 
                 // loader component
                 <div className="flex justify-center items-center">
-                    <span className="loading loading-ring loading-lg"></span>
+                    <span className="loading loading-ring loading-lg" data-testid="loader"></span>
                 </div>
                 : <div className={`h-[620px] overflow-y-scroll ${leftTableData.length>0?"":"hidden"}`}>
-                    <table className="w-full table">
+                    <table className="w-full table" data-testid="left-table">
                         <thead>
                             <tr className="text-base">
                                 <th className="w-[55px]">Id</th>
@@ -148,7 +148,7 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                 {/* right table */}
                 <div className={rightTableData.length>0?"":"hidden"}>
                     <div className="h-[575px] overflow-y-scroll">
-                        <table className="w-full table">
+                        <table className="w-full table" data-testid="right-table">
                             <thead>
                                 <tr className="text-base">
                                     <th className="w-[55px]">Id</th>
@@ -167,8 +167,8 @@ export default function TablePage({index, leftTableData, rightTableData, setLeft
                     </div>
                     {/* send and clear btn container */}
                     <div className="mr-8 my-2 flex justify-end gap-8">
-                        <button className="btn btn-outline rounded" onClick={sendData}>Send</button>
-                        <button className="btn btn-outline rounded" onClick={()=>setRightTableData([])}>Clear</button>
+                        <button data-testid="send-tasks" className="btn btn-outline rounded" onClick={sendData}>Send</button>
+                        <button data-testid="clear-tasks" className="btn btn-outline rounded" onClick={()=>setRightTableData([])}>Clear</button>
                     </div>
                 </div>
             </div>
